@@ -54,32 +54,29 @@ export default function StatsSection() {
         </div>
       </header>
       
-      {/* Stats cards */}
-      <div className="border-b border-white/10 bg-gray-900/70 mt-6">
-        <dl className="mx-auto grid max-w-7xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 lg:px-2 xl:px-0">
-          {stats.map((stat, statIdx) => (
-            <div
-              key={stat.name}
-              className={classNames(
-                statIdx % 2 === 1 ? 'sm:border-l' : statIdx === 2 ? 'lg:border-l' : '',
-                'flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 border-t border-white/5 px-4 py-10 sm:px-6 lg:border-t-0 xl:px-8',
-              )}
-            >
-              <dt className="text-sm font-medium leading-6 text-gray-400">{stat.name}</dt>
-              <dd className="text-2xl font-semibold tracking-tight text-white">{stat.value}</dd>
-              <dd className={classNames(
-                stat.changeType === 'negative' ? 'text-rose-500' : 'text-green-500',
-                'flex items-baseline gap-x-2 text-xs font-medium'
-              )}>
-                {stat.changeType === 'negative' ? (
-                  <ArrowDownCircleIcon className="h-4 w-4 flex-none fill-rose-500/20 stroke-rose-500" aria-hidden="true" />
-                ) : (
-                  <ArrowUpCircleIcon className="h-4 w-4 flex-none fill-green-500/20 stroke-green-500" aria-hidden="true" />
-                )}
-                {stat.change}
-              </dd>
-            </div>
-          ))}
+      {/* Stats */}
+      <div class="border-b border-b-gray-900/10 lg:border-t lg:border-t-gray-900/5 dark:border-b-white/10 dark:lg:border-t-white/5">
+        <dl class="mx-auto grid max-w-7xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 lg:px-2 xl:px-0">
+          <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 border-t border-gray-900/5 px-4 py-10 sm:px-6 lg:border-t-0 xl:px-8 dark:border-white/5">
+            <dt class="text-sm/6 font-medium text-gray-500 dark:text-gray-400">Revenue</dt>
+            <dd class="text-xs font-medium text-gray-700 dark:text-gray-300">+4.75%</dd>
+            <dd class="w-full flex-none text-3xl/10 font-medium tracking-tight text-gray-900 dark:text-white">$405,091.00</dd>
+          </div>
+          <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 border-t border-gray-900/5 px-4 py-10 sm:border-l sm:px-6 lg:border-t-0 xl:px-8 dark:border-white/5">
+            <dt class="text-sm/6 font-medium text-gray-500 dark:text-gray-400">Overdue invoices</dt>
+            <dd class="text-xs font-medium text-rose-600 dark:text-rose-400">+54.02%</dd>
+            <dd class="w-full flex-none text-3xl/10 font-medium tracking-tight text-gray-900 dark:text-white">$12,787.00</dd>
+          </div>
+          <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 border-t border-gray-900/5 px-4 py-10 sm:px-6 lg:border-t-0 lg:border-l xl:px-8 dark:border-white/5">
+            <dt class="text-sm/6 font-medium text-gray-500 dark:text-gray-400">Outstanding invoices</dt>
+            <dd class="text-xs font-medium text-gray-700 dark:text-gray-300">-1.39%</dd>
+            <dd class="w-full flex-none text-3xl/10 font-medium tracking-tight text-gray-900 dark:text-white">$245,988.00</dd>
+          </div>
+          <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 border-t border-gray-900/5 px-4 py-10 sm:border-l sm:px-6 lg:border-t-0 xl:px-8 dark:border-white/5">
+            <dt class="text-sm/6 font-medium text-gray-500 dark:text-gray-400">Expenses</dt>
+            <dd class="text-xs font-medium text-rose-600 dark:text-rose-400">+10.18%</dd>
+            <dd class="w-full flex-none text-3xl/10 font-medium tracking-tight text-gray-900 dark:text-white">$30,156.00</dd>
+          </div>
         </dl>
       </div>
     </>

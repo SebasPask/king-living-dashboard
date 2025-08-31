@@ -21,9 +21,7 @@ export default function RootLayout({ children }) {
         <title>King Living Dashboard</title>
         <meta name="description" content="Dashboard for King Living" />
       </head>
-      <body
-        className={` antialiased h-full`}
-      >
+      <body>
         <div>
           <Dialog open={sidebarOpen} onClose={setSidebarOpen} className="relative z-50 lg:hidden">
             <DialogBackdrop
