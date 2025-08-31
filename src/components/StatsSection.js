@@ -1,21 +1,9 @@
 'use client'
 
-import { ArrowDownCircleIcon, ArrowUpCircleIcon } from '@heroicons/react/20/solid'
-
-// Stats data
-const stats = [
-  { name: 'Revenue', value: '$405,091.00', change: '+4.75%', changeType: 'positive' },
-  { name: 'Overdue invoices', value: '$12,787.00', change: '+54.02%', changeType: 'negative' },
-  { name: 'Outstanding invoices', value: '$245,988.00', change: '-1.39%', changeType: 'positive' },
-  { name: 'Expenses', value: '$30,156.00', change: '+10.18%', changeType: 'negative' },
-]
-
-// Secondary navigation data
-const secondaryNavigation = [
-  { name: 'Last 7 days', href: '#', current: true },
-  { name: 'Last 30 days', href: '#', current: false },
-  { name: 'All-time', href: '#', current: false },
-]
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { setLocation, selectLocations, selectCurrentLocation } from '../redux/locationSlice';
+import { generateStatsByRegion } from '../utils/mockDataGenerator';
 
 // Utility function for conditional class names
 function classNames(...classes) {
@@ -23,6 +11,17 @@ function classNames(...classes) {
 }
 
 export default function StatsSection() {
+  const dispatch = useDispatch();
+  const locations = useSelector(selectLocations);
+  const currentLocation = useSelector(selectCurrentLocation);
+  const [stats, setStats] = useState([]);
+
+  // Update stats when location changes
+  useEffect(() => {
+    const newStats = generateStatsByRegion(currentLocation);
+    setStats(newStats);
+  }, [currentLocation]);
+
   return (
     <>
       {/* Decorative background elements */}
@@ -39,12 +38,16 @@ export default function StatsSection() {
       {/* Secondary navigation */}
       <header className="pb-4 pt-1 sm:pb-6">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-6 px-4 sm:flex-nowrap sm:px-6 lg:px-8">
-          <h1 className="text-base/7 font-semibold leading-7 text-white">Cashflow</h1>
+          <h1 className="text-base/7 font-semibold leading-7 text-white">Locations</h1>
           <div className="order-last flex w-full gap-x-8 text-sm/6 font-semibold sm:order-none sm:w-auto sm:border-l sm:border-white/10 sm:pl-6 sm:leading-7">
-            {secondaryNavigation.map((item) => (
+            {locations.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(setLocation(item.name));
+                }}
                 className={classNames(item.current ? 'text-indigo-400' : 'text-gray-400', 'hover:text-white')}
               >
                 {item.name}

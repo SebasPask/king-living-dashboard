@@ -5,12 +5,13 @@ This file tracks the current tasks, backlog, and discoveries made during develop
 ---
 
 ## 📌 Active Tasks
-- [ ] Initialise Next.js project with Tailwind CSS  
-- [ ] Create `RULES.md`, `PLANNING.md`, `TASK.md` project docs  
+- [x] Initialise Next.js project with Tailwind CSS  
+- [x] Create `RULES.md`, `PLANNING.md`, `TASK.md` project docs  
+- [x] Build unified dashboard page (`/pages/index.js`)  
+- [x] Ensure UI is responsive and display-friendly  
+- [x] Add state management with redux
 - [ ] Implement mock data generator using `@faker-js/faker`  
-- [ ] Build unified dashboard page (`/pages/index.js`)  
 - [ ] Display orders table with columns: ID, Customer, Product, Amount, Date, Region  
-- [ ] Ensure UI is responsive and display-friendly  
 - [ ] Add at least one unit test for mock data generator  
 
 ---
@@ -19,10 +20,7 @@ This file tracks the current tasks, backlog, and discoveries made during develop
 - [ ] Add filtering by region (APAC, UK, US)  
 - [ ] Add sorting by date or amount  
 - [ ] Create summary statistics (e.g., total revenue by region)  
-- [ ] Add chart visualisation (bar/pie chart)  
-- [ ] Convert project to TypeScript  
-- [ ] Add Jest + React Testing Library setup for broader coverage  
-- [ ] Prepare Dockerfile for containerised deployment  
+- [ ] Add chart visualisation (bar/pie chart) 
 
 ---
 
@@ -35,5 +33,9 @@ This file tracks the current tasks, backlog, and discoveries made during develop
 
 ## 🗓️ Completed Tasks
 *(Move tasks here when finished with date of completion.)*  
-- [ ] _TBD_  
+- [x] Initialise Next.js project with Tailwind CSS (2025-08-31)  
+- [x] Create `RULES.md`, `PLANNING.md`, `TASK.md` project docs (2025-08-31)
+- [x] Build unified dashboard page (`/pages/index.js`) (2025-08-31)  
+- [x] Ensure UI is responsive and display-friendly (2025-08-31)
+- [x] Add state management with redux (2025-08-31)
 

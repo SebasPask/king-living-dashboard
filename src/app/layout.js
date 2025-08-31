@@ -11,6 +11,7 @@ import {
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { MobileNavigation, DesktopNavigation } from '../components/Navigation'
 import TopNavigation from '../components/TopNavigation'
+import ReduxProvider from '../redux/provider'
 
 export default function RootLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -82,7 +83,9 @@ export default function RootLayout({ children }) {
 
             <main>
               <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
-                {children}
+                <ReduxProvider>
+                  {children}
+                </ReduxProvider>
               </div>
             </main>
           </div>

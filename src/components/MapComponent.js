@@ -1,6 +1,8 @@
 'use client'
 
 import React, { useState, useEffect } from "react";
+import { useSelector } from 'react-redux';
+import { selectCurrentLocation } from '../redux/locationSlice';
 import {
   ComposableMap,
   Geographies,
@@ -13,16 +15,19 @@ import {
 
 const geoUrl = "/features.json";
 
-// Sample data for marker locations (stores/distribution centers)
-const locations = [
-  { name: "Sydney", coordinates: [151.2093, -33.8688], type: "headquarters" },
-  { name: "London", coordinates: [-0.1278, 51.5074], type: "store" },
-  { name: "New York", coordinates: [-74.0060, 40.7128], type: "store" },
+// Countries to highlight with their colors
+const highlightedCountries = [
+  { name: "Australia", color: "#7c86ff" },  // Purple
+  { name: "United States", color: "#7c86ff" }, // Blue
+  { name: "United Kingdom", color: "#7c86ff" }, // Green
 ];
 
 const MapComponent = () => {
   const [hoveredLocation, setHoveredLocation] = useState(null);
   const [mapError, setMapError] = useState(false);
+  
+  // Get current location from Redux store
+  const currentLocation = useSelector(selectCurrentLocation);
 
   // Handle error if map fails to load
   const handleMapError = () => {
@@ -56,102 +61,83 @@ const MapComponent = () => {
                 <Graticule stroke="#374151" strokeWidth={0.5} />
                 <Geographies geography={geoUrl} onError={handleMapError}>
                   {({ geographies }) =>
-                    geographies.map((geo) => (
-                      <Geography
-                        key={geo.rsmKey}
-                        geography={geo}
-                        fill="#1F2937"
-                        stroke="#374151"
-                        style={{
-                          default: {
-                            fill: "#1F2937",
-                            outline: "none",
-                            strokeWidth: 0.9,
-                          },
-                          hover: {
-                            fill: "#374151",
-                            outline: "none",
-                          },
-                          pressed: {
-                            fill: "#4B5563",
-                            outline: "none",
-                          },
-                        }}
-                      />
-                    ))
+                    geographies.map((geo) => {
+                      // Check if the country matches current location or should be highlighted
+                      const isSelected = 
+                        (currentLocation === 'Australia' && geo.properties.name === 'Australia') ||
+                        (currentLocation === 'United Kingdom' && geo.properties.name === 'United Kingdom') ||
+                        (currentLocation === 'United States' && geo.properties.name === 'United States') ||
+                        (currentLocation === 'All');
+                        
+                      // Check if this country is in our highlighted countries list
+                      const isHighlighted = highlightedCountries.some(c => c.name === geo.properties.name);
+                      
+                      // Get the fill color - bright color if selected, dark background for all non-selected
+                      const fillColor = isSelected && isHighlighted ? 
+                        '#4f46e5' : // Bright indigo for selected countries
+                        '#1F2937';  // Dark background for all non-selected countries
+
+                      // Slightly lighten colors for hover and pressed states
+                      const hoverColor = isSelected && isHighlighted ? 
+                        '#6366f1' : // Lighter indigo for selected hover
+                        '#374151';  // Lighter background for all non-selected countries hover
+                          
+                      const pressedColor = isSelected && isHighlighted ? 
+                        '#4338ca' : // Darker indigo for selected pressed
+                        '#4B5563';  // Darker background for all non-selected countries pressed
+
+                      return (
+                        <Geography
+                          key={geo.rsmKey}
+                          geography={geo}
+                          fill={fillColor}
+                          stroke="#374151"
+                          style={{
+                            default: {
+                              fill: fillColor,
+                              outline: "none",
+                              strokeWidth: 0.9,
+                            },
+                            hover: {
+                              fill: hoverColor,
+                              outline: "none",
+                              opacity: 0.8,
+                            },
+                            pressed: {
+                              fill: pressedColor,
+                              outline: "none",
+                              opacity: 0.9,
+                            },
+                          }}
+                        />
+                      );
+                    })
                   }
                 </Geographies>
-
-                {/* Location markers */}
-                {locations.map((location) => {
-                  const isHovered = hoveredLocation === location.name;
-                  const isHQ = location.type === "headquarters";
-
-                  return (
-                    <Marker
-                      key={location.name}
-                      coordinates={location.coordinates}
-                      onMouseEnter={() => setHoveredLocation(location.name)}
-                      onMouseLeave={() => setHoveredLocation(null)}
-                    >
-                      <g transform="translate(-8, -24)">
-                        {/* Pulsing effect for HQ */}
-                        <circle
-                          r={12}
-                          fill="#a855f7"
-                          opacity={0.4}
-                          style={{
-                            animation: "ping 2s cubic-bezier(0, 0, 0.2, 1) infinite",
-                          }}
-                        />
-
-                        {/* Pin head */}
-                        <circle
-                          r={8}
-                          fill={isHQ ? "#a855f7" : location.type === "store" ? "#c084fc" : "#d8b4fe"}
-                          stroke="#1e1b4b"
-                          strokeWidth={1}
-                          style={{
-                            transition: "all 0.2s",
-                            transform: isHovered ? "scale(1.3)" : "scale(1)",
-                          }}
-                        />
-                      </g>
-
-                      {/* Label */}
-                      <text
-                        textAnchor="middle"
-                        y={-32}
-                        style={{
-                          fill: "#ffffff",
-                          fontSize: "12px",
-                          fontWeight: "500",
-                          textShadow: "0px 0px 5px #000000"
-                        }}
-                      >
-                        {location.name}
-                      </text>
-                    </Marker>
-                  );
-                })}
               </ZoomableGroup>
             </ComposableMap>
         )}
 
         {/* Legend */}
         <div className="absolute bottom-2 left-2 bg-black/80 p-2 rounded text-xs text-gray-300 border border-gray-800 z-20">
-          <div className="flex items-center mb-1">
-            <div className="w-3 h-3 rounded-full bg-purple-500 mr-1"></div>
-            <span>Headquarters</span>
+          <div className="mb-2 pb-1 border-b border-gray-700">
+            <span className="font-medium">Selected Region: {currentLocation}</span>
           </div>
-          <div className="flex items-center mb-1">
-            <div className="w-3 h-3 rounded-full bg-purple-400 mr-1"></div>
-            <span>Store Location</span>
-          </div>
-          <div className="flex items-center">
-            <div className="w-3 h-3 rounded-full bg-purple-300 mr-1"></div>
-            <span>Distribution Center</span>
-          </div>
+          {highlightedCountries.map(country => (
+            <div key={country.name} className="flex items-center mb-1">
+              <div 
+                className="w-3 h-3 mr-2 rounded-full" 
+                style={{ 
+                  backgroundColor: 
+                    (currentLocation === country.name || currentLocation === 'All') ? 
+                    '#4f46e5' : '#6b7280'
+                }}
+              ></div>
+              <span className={`${(currentLocation === country.name || currentLocation === 'All') ? 'text-white font-medium' : ''}`}>
+                {country.name}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </div>

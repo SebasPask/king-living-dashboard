@@ -100,8 +100,8 @@ export default function RecentActivity() {
                   </thead>
                   <tbody>
                     <tr className="text-sm/6 text-gray-900 dark:text-white">
-                      <th scope="colgroup" colspan="3" className="relative isolate py-2 font-semibold">
-                        <time datetime="2023-03-22">Today</time>
+                      <th scope="colgroup" colSpan="3" className="relative isolate py-2 font-semibold">
+                        <time dateTime="2023-03-22">Today</time>
                         <div className="absolute inset-y-0 right-full -z-10 w-screen border-b border-gray-200 bg-gray-50 dark:border-white/10 dark:bg-white/2.5"></div>
                         <div className="absolute inset-y-0 left-0 -z-10 w-screen border-b border-gray-200 bg-gray-50 dark:border-white/10 dark:bg-white/2.5"></div>
                       </th>
@@ -110,7 +110,7 @@ export default function RecentActivity() {
                       <td className="relative py-5 pr-6">
                         <div className="flex gap-x-6">
                           <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" className="hidden h-6 w-5 flex-none text-gray-400 sm:block dark:text-gray-500">
-                            <path d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm-.75-4.75a.75.75 0 0 0 1.5 0V8.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0L6.2 9.74a.75.75 0 1 0 1.1 1.02l1.95-2.1v4.59Z" clip-rule="evenodd" fillRule="evenodd" />
+                            <path d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm-.75-4.75a.75.75 0 0 0 1.5 0V8.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0L6.2 9.74a.75.75 0 1 0 1.1 1.02l1.95-2.1v4.59Z" clipRule="evenodd" fillRule="evenodd" />
                           </svg>
                           <div className="flex-auto">
                             <div className="flex items-start gap-x-3">
@@ -138,7 +138,7 @@ export default function RecentActivity() {
                       <td className="relative py-5 pr-6">
                         <div className="flex gap-x-6">
                           <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" className="hidden h-6 w-5 flex-none text-gray-400 sm:block dark:text-gray-500">
-                            <path d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm.75-11.25a.75.75 0 0 0-1.5 0v4.59L7.3 9.24a.75.75 0 0 0-1.1 1.02l3.25 3.5a.75.75 0 0 0 1.1 0l3.25-3.5a.75.75 0 1 0-1.1-1.02l-1.95 2.1V6.75Z" clip-rule="evenodd" fill-rule="evenodd" />
+                            <path d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm.75-11.25a.75.75 0 0 0-1.5 0v4.59L7.3 9.24a.75.75 0 0 0-1.1 1.02l3.25 3.5a.75.75 0 0 0 1.1 0l3.25-3.5a.75.75 0 1 0-1.1-1.02l-1.95 2.1V6.75Z" clipRule="evenodd" fillRule="evenodd" />
                           </svg>
                           <div className="flex-auto">
                             <div className="flex items-start gap-x-3">
@@ -165,7 +165,7 @@ export default function RecentActivity() {
                       <td className="relative py-5 pr-6">
                         <div className="flex gap-x-6">
                           <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" className="hidden h-6 w-5 flex-none text-gray-400 sm:block dark:text-gray-500">
-                            <path d="M15.312 11.424a5.5 5.5 0 0 1-9.201 2.466l-.312-.311h2.433a.75.75 0 0 0 0-1.5H3.989a.75.75 0 0 0-.75.75v4.242a.75.75 0 0 0 1.5 0v-2.43l.31.31a7 7 0 0 0 11.712-3.138.75.75 0 0 0-1.449-.39Zm1.23-3.723a.75.75 0 0 0 .219-.53V2.929a.75.75 0 0 0-1.5 0V5.36l-.31-.31A7 7 0 0 0 3.239 8.188a.75.75 0 1 0 1.448.389A5.5 5.5 0 0 1 13.89 6.11l.311.31h-2.432a.75.75 0 0 0 0 1.5h4.243a.75.75 0 0 0 .53-.219Z" clip-rule="evenodd" fill-rule="evenodd" />
+                            <path d="M15.312 11.424a5.5 5.5 0 0 1-9.201 2.466l-.312-.311h2.433a.75.75 0 0 0 0-1.5H3.989a.75.75 0 0 0-.75.75v4.242a.75.75 0 0 0 1.5 0v-2.43l.31.31a7 7 0 0 0 11.712-3.138.75.75 0 0 0-1.449-.39Zm1.23-3.723a.75.75 0 0 0 .219-.53V2.929a.75.75 0 0 0-1.5 0V5.36l-.31-.31A7 7 0 0 0 3.239 8.188a.75.75 0 1 0 1.448.389A5.5 5.5 0 0 1 13.89 6.11l.311.31h-2.432a.75.75 0 0 0 0 1.5h4.243a.75.75 0 0 0 .53-.219Z" clipRule="evenodd" fillRule="evenodd" />
                           </svg>
                           <div className="flex-auto">
                             <div className="flex items-start gap-x-3">
@@ -191,8 +191,8 @@ export default function RecentActivity() {
                     </tr>
 
                     <tr className="text-sm/6 text-gray-900 dark:text-white">
-                      <th scope="colgroup" colspan="3" className="relative isolate py-2 font-semibold">
-                        <time datetime="2023-03-21">Yesterday</time>
+                      <th scope="colgroup" colSpan="3" className="relative isolate py-2 font-semibold">
+                        <time dateTime="2023-03-21">Yesterday</time>
                         <div className="absolute inset-y-0 right-full -z-10 w-screen border-b border-gray-200 bg-gray-50 dark:border-white/10 dark:bg-white/2.5"></div>
                         <div className="absolute inset-y-0 left-0 -z-10 w-screen border-b border-gray-200 bg-gray-50 dark:border-white/10 dark:bg-white/2.5"></div>
                       </th>
@@ -201,7 +201,7 @@ export default function RecentActivity() {
                       <td className="relative py-5 pr-6">
                         <div className="flex gap-x-6">
                           <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" className="hidden h-6 w-5 flex-none text-gray-400 sm:block dark:text-gray-500">
-                            <path d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm-.75-4.75a.75.75 0 0 0 1.5 0V8.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0L6.2 9.74a.75.75 0 1 0 1.1 1.02l1.95-2.1v4.59Z" clip-rule="evenodd" fill-rule="evenodd" />
+                            <path d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm-.75-4.75a.75.75 0 0 0 1.5 0V8.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0L6.2 9.74a.75.75 0 1 0 1.1 1.02l1.95-2.1v4.59Z" clipRule="evenodd" fillRule="evenodd" />
                           </svg>
                           <div className="flex-auto">
                             <div className="flex items-start gap-x-3">
