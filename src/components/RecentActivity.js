@@ -81,7 +81,7 @@ function classNames(...classes) {
 export default function RecentActivity() {
   return (
     <>
-      <div className="space-y-16 py-16 xl:space-y-20">
+      <div className="space-y-16 py-10 xl:space-y-20">
         {/* <!-- Recent activity table --> */}
         <div>
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

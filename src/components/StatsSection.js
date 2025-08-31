@@ -37,7 +37,7 @@ export default function StatsSection() {
       </div>
 
       {/* Secondary navigation */}
-      <header className="pb-4 pt-6 sm:pb-6">
+      <header className="pb-4 pt-1 sm:pb-6">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-6 px-4 sm:flex-nowrap sm:px-6 lg:px-8">
           <h1 className="text-base/7 font-semibold leading-7 text-white">Cashflow</h1>
           <div className="order-last flex w-full gap-x-8 text-sm/6 font-semibold sm:order-none sm:w-auto sm:border-l sm:border-white/10 sm:pl-6 sm:leading-7">
