@@ -2,37 +2,54 @@
 
 A real-time global orders monitoring dashboard for King Living furniture company, providing visual insights into order activity across different regions with interactive mapping and dynamic statistics.
 
-## Detail Prompts for Application Building
+## Consolidated Implementation Prompts
 
-These prompts would have been useful when building this application:
+These 7 comprehensive prompts provide detailed guidance for building this application:
 
-1. **Initial Setup:**
-   - "Create a Next.js application with TailwindCSS for a global orders dashboard for a furniture company"
-   - "Set up responsive layout with dark theme optimized for large displays"
-   - "Configure Redux store for state management with separate slices for orders, statistics, and location"
+### 1. **Project Foundation & Redux Architecture**
+"Set up a Next.js 14 application with complete Redux state management. Create the project using `create-next-app` with TailwindCSS. Configure src/app/ structure with layout.js and page.js. Install @reduxjs/toolkit, @faker-js/faker, react-simple-maps, @number-flow/react, and @heroicons/react. 
 
-2. **Map Component:**
-   - "Create an interactive world map using react-simple-maps that highlights Australia, UK, and US"
-   - "Implement region selection with visual feedback on the map"
-   - "Add legend to map showing active regions and their status"
+Create src/redux/store.js with configureStore containing three slices: locationSlice (manages currentLocation='All', locations array with All/Australia/United Kingdom/United States, setLocation reducer, selectCurrentLocation selector), ordersSlice (transactions array with 11 initial orders, addOrder reducer adding to position 0 with isNew/timestamp, selectOrders selector filtering by location), and statsSlice (generateStatsByRegion('All') initial state, updateStats and updateStatsFromOrder reducers with parseFloat handling, selectStats selector). 
 
-3. **Orders System:**
-   - "Build a mock data generator for furniture orders using faker.js"
-   - "Create an orders simulator component that generates realistic orders at configurable intervals"
-   - "Design a recent orders display showing order details, customer information, and regional data"
+Setup Redux Provider in src/redux/provider.js wrapping the entire application in layout.js. Configure dark theme CSS with gray-900 backgrounds, white text, proper responsive classes (sm:, lg:, xl:), and hover states throughout."
 
-4. **Stats Section:**
-   - "Create stats cards for revenue, expenses, new orders, and processed orders"
-   - "Implement region-specific stats filtering that updates when region changes"
-   - "Add animations for stats changes to improve visual feedback"
+### 2. **Mock Data System & State Logic**
+"Build a comprehensive fake data generator in src/utils/mockDataGenerator.js. Create a sofaProducts array with 16 specific King Living furniture names (Jasper Modular Sofa, 1977 Modular Sofa, etc.). 
 
-5. **Navigation:**
-   - "Design a navigation component for switching between regions (All, Australia, UK, US)"
-   - "Connect navigation to Redux to update all components when region changes"
-   - "Style navigation with active state indicators and hover effects"
-   - "Create a top navigation bar with user profile, search functionality, and notifications"
-   - "Add custom user avatar using local images from the public directory"
-   - "Implement TopNavigation component with dropdown menu for user profile management and search bar"
+Implement generateSimulatedOrder() returning: faker.string.uuid() id, faker.string.numeric(5) orderNumber, faker.number.int({min:800,max:5000}) amount formatted as '$X,XXX', tax calculated as 10% of amount, status from ['Processing','Processed'], location from ['Australia','United Kingdom','United States'], description from sofaProducts array, icon ('ArrowDownCircle' for Processing, 'ArrowUpCircle' for Processed), and isNew:true flag.
+
+Create generateStatsByRegion(region) with base values: Australia{revenue:405091,newOrders:146,processedOrders:421,expenses:30156}, UK{revenue:320450,newOrders:264,processedOrders:398,expenses:25800}, US{revenue:580250,newOrders:443,processedOrders:413,expenses:42300}, All{revenue:1305791,newOrders:853,processedOrders:1232,expenses:98256}. Add ±5% randomization using faker.number.float({min:-0.05,max:0.05}) and return formatted stats array with name, value, change percentage, and changeType."
+
+### 3. **Core UI Components & Real-time Simulation**
+"Create three integrated components: OrdersSimulator (invisible background process), MapComponent (interactive world map), and StatsSection (animated statistics display).
+
+OrdersSimulator in src/components/: Accept props enabled=true and interval=3690, render null, use useEffect with setInterval calling generateSimulatedOrder() every interval, dispatch both addOrder and updateStatsFromOrder({order, location:currentLocation}), add console.log for debugging, implement proper cleanup.
+
+MapComponent: Install react-simple-maps, configure ComposableMap with projection='geoMercator' projectionConfig={{scale:260,center:[5,10]}}, load geography from '/features.json', implement country highlighting (selected:#4f46e5, unselected:#1F2937), add legend with current region display, handle loading errors with fallback UI, connect to selectCurrentLocation for real-time updates.
+
+StatsSection: Install @number-flow/react, create 4 stat cards (Revenue, Expenses, New Orders, Processed Orders) using NumberFlow with duration:2300ms, delay:200ms, easeInOut animation, format currency with $ prefix, connect to selectStats with useEffect updating on currentLocation changes, include region navigation with text-indigo-400 active styling."
+
+### 4. **Navigation Systems & User Interface**
+"Implement dual navigation: regional switching integrated in StatsSection and top application navigation bar.
+
+Regional Navigation: Embed in StatsSection header with 'Locations' title, map through selectLocations array, style active location with text-indigo-400 and inactive with text-white, dispatch setLocation(item.name) on click with preventDefault, use responsive classes sm:border-l sm:border-white/10 sm:pl-6.
+
+TopNavigation Component: Use Headless UI Menu/MenuButton/MenuItems, create search form with MagnifyingGlassIcon (col-start-1 row-start-1 positioning), add notification BellIcon button with hover:text-white, implement profile dropdown with img src='/public/sebastian-pask.webp' (size-8 rounded-full), display 'Sebastian' username with ChevronDownIcon, style dropdown with bg-gray-800 py-2 rounded-md, include proper transition classes data-closed:scale-95 data-closed:opacity-0."
+
+### 5. **Orders Display & Table Management**
+"Create RecentOrders component with responsive table displaying filtered order data. Structure: container with max-w-7xl mx-auto px-4, table with bg-black/40 border-gray-800 styling, thead with sticky positioning and gray-500 text.
+
+Columns: Order # (orderNumber), Amount (formatted with $ and commas), Status (with icon mapping: Processing=ArrowDownCircle, Processed=ArrowUpCircle, Refunded=ArrowPath), Location (region name), Description (product name). 
+
+Connect to Redux using selectOrders (automatically filters by currentLocation), implement new order animations using isNew flag and _timestamp, style status badges with conditional colors (Processing: bg-yellow-100 text-yellow-800, Processed: bg-green-100 text-green-800), add hover effects on table rows, implement responsive design with hidden columns on mobile (hide tax and location on small screens), limit display to recent 20 orders for performance."
+
+### 6. **Application Integration & Layout**
+"Assemble the complete application in src/app/page.js with proper component hierarchy and styling. Structure: OrdersSimulator with interval={8000} (invisible), decorative background gradients with clip-path styling, StatsSection at top, MapComponent in max-w-7xl container with mt-8 spacing, RecentOrders at bottom.
+
+Add gradient background elements: absolute positioning with -z-10, transform-gpu blur-3xl, aspect-[1108/632] dimensions, bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-20, complex clip-path polygon for visual appeal.
+
+Ensure proper 'use client' directives on all interactive components, implement responsive spacing with px-6 lg:px-8 classes, add proper isolation with 'relative isolate overflow-hidden' on main container. Configure global layout in layout.js with Redux Provider wrapping, proper font loading, and metadata configuration."
+
 
 ## Technical Design Decisions & Reasoning
 
