@@ -132,8 +132,15 @@ const ordersSlice = createSlice({
       // This is just a placeholder for now
     },
     addOrder: (state, action) => {
-      // Add a new order to the state
-      state.transactions.unshift(action.payload);
+      // Add a new order to the state with isNew flag and timestamp
+      const orderWithNewFlag = {
+        ...action.payload,
+        isNew: true,
+        _timestamp: Date.now() // Add timestamp to track when it was added
+      };
+      
+      // Ensure we insert at position 0 (top of the list)
+      state.transactions.unshift(orderWithNewFlag);
       
       // Optionally limit the number of orders to keep the list manageable
       if (state.transactions.length > 50) {

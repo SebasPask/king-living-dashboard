@@ -11,7 +11,7 @@ import { generateSimulatedOrder } from '../utils/mockDataGenerator';
  * Component that simulates incoming orders at regular intervals
  * This component doesn't render anything visible - it just runs the simulation logic
  */
-export default function OrdersSimulator({ enabled = true, interval = 5000 }) {
+export default function OrdersSimulator({ enabled = true, interval = 3500 }) {
   const dispatch = useDispatch();
   const [isSimulating, setIsSimulating] = useState(enabled);
   const [simulationSpeed, setSimulationSpeed] = useState(interval);

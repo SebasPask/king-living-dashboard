@@ -71,12 +71,18 @@ export default function RecentOrders() {
                     <tbody>
                       {transactions
                         .slice() // Create a copy to avoid mutating the original array
+                        // Add timestamp to each transaction if missing
+                        .map(transaction => ({
+                          ...transaction,
+                          // Store timestamp of when this transaction was first seen
+                          _timestamp: transaction._timestamp || Date.now()
+                        }))
                         .sort((a, b) => {
                           // First prioritize by isNew flag (new orders first)
                           if (a.isNew && !b.isNew) return -1;
                           if (!a.isNew && b.isNew) return 1;
-                          // Then sort by most recent first (assuming most recent are at the end)
-                          return -1; // maintain reverse order for non-new items
+                          // Then sort by timestamp (most recent first)
+                          return b._timestamp - a._timestamp;
                         })
                         .map((transaction) => (
                           <motion.tr
@@ -84,19 +90,19 @@ export default function RecentOrders() {
                             initial={transaction.isNew && !seenOrders[transaction.id] ? { 
                               y: -50, 
                               opacity: 0, 
-                              backgroundColor: 'rgba(254, 240, 138, 0.5)' 
+                              filter: 'blur(8px)'
                             } : { opacity: 1 }}
                             animate={{ 
                               y: 0, 
                               opacity: 1, 
-                              backgroundColor: transaction.isNew && !seenOrders[transaction.id] 
-                                ? ['rgba(254, 240, 138, 0.5)', 'rgba(254, 240, 138, 0.2)', 'rgba(254, 240, 138, 0)'] 
-                                : 'transparent'
+                              filter: transaction.isNew && !seenOrders[transaction.id] 
+                                ? ['blur(8px)', 'blur(4px)', 'blur(0px)'] 
+                                : 'blur(0px)'
                             }}
                             transition={{
                               y: { type: 'spring', stiffness: 200, damping: 20 },
                               opacity: { duration: 0.5 },
-                              backgroundColor: { duration: 1.2, times: [0, 0.7, 1] }
+                              filter: { duration: 1.2, times: [0, 0.5, 1] }
                             }}>
                             <td className="relative py-5 pr-6 pl-3">
                             <div className="flex gap-x-6">
