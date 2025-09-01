@@ -22,8 +22,8 @@ export default function RootLayout({ children }) {
         <title>King Living Dashboard</title>
         <meta name="description" content="Dashboard for King Living" />
       </head>
-      <body>
-        <div>
+      <body className="h-full">
+        <div className="min-h-full flex flex-col">
           <Dialog open={sidebarOpen} onClose={setSidebarOpen} className="relative z-50 lg:hidden">
             <DialogBackdrop
               transition
@@ -78,11 +78,11 @@ export default function RootLayout({ children }) {
             </nav>
           </div>
 
-          <div className="lg:pl-20">
+          <div className="lg:pl-20 flex flex-col flex-1">
             <TopNavigation setSidebarOpen={setSidebarOpen} />
 
-            <main>
-              <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
+            <main className="flex-1 flex flex-col">
+              <div className="py-10 lg:py-6 flex-1 flex flex-col">
                 <ReduxProvider>
                   {children}
                 </ReduxProvider>
