@@ -1,9 +1,10 @@
 'use client'
 
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { ArrowDownCircleIcon, ArrowPathIcon, ArrowUpCircleIcon } from '@heroicons/react/20/solid'
-import { selectOrders } from '../redux/ordersSlice'
+import { selectOrders, addOrder } from '../redux/ordersSlice'
+import { motion, AnimatePresence } from 'framer-motion'
 
 // Map of icon names to components
 const iconMap = {
@@ -17,9 +18,35 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
+// Define animation duration for new orders (in ms)
+const NEW_ORDER_ANIMATION_DURATION = 3000
+
 export default function RecentOrders() {
   // Get transactions data from Redux store
   const transactions = useSelector(selectOrders)
+  const dispatch = useDispatch()
+
+  // State to track which orders have been seen
+  const [seenOrders, setSeenOrders] = useState({})
+
+  useEffect(() => {
+    // Mark new orders as seen after they've been displayed
+    const newOrderIds = transactions
+      .filter(t => t.isNew && !seenOrders[t.id])
+      .map(t => t.id)
+
+    if (newOrderIds.length > 0) {
+      const timer = setTimeout(() => {
+        const updatedSeenOrders = { ...seenOrders }
+        newOrderIds.forEach(id => {
+          updatedSeenOrders[id] = true
+        })
+        setSeenOrders(updatedSeenOrders)
+      }, 1000) // Mark as seen after animation completes
+
+      return () => clearTimeout(timer)
+    }
+  }, [transactions, seenOrders])
 
   return (
     <div className="space-y-16 py-10 xl:space-y-20">
@@ -42,9 +69,36 @@ export default function RecentOrders() {
                       </tr>
                     </thead>
                     <tbody>
-                      {transactions.map((transaction) => (
-                        <tr key={transaction.id}>
-                          <td className="relative py-5 pr-6">
+                      {transactions
+                        .slice() // Create a copy to avoid mutating the original array
+                        .sort((a, b) => {
+                          // First prioritize by isNew flag (new orders first)
+                          if (a.isNew && !b.isNew) return -1;
+                          if (!a.isNew && b.isNew) return 1;
+                          // Then sort by most recent first (assuming most recent are at the end)
+                          return -1; // maintain reverse order for non-new items
+                        })
+                        .map((transaction) => (
+                          <motion.tr
+                            key={transaction.id}
+                            initial={transaction.isNew && !seenOrders[transaction.id] ? { 
+                              y: -50, 
+                              opacity: 0, 
+                              backgroundColor: 'rgba(254, 240, 138, 0.5)' 
+                            } : { opacity: 1 }}
+                            animate={{ 
+                              y: 0, 
+                              opacity: 1, 
+                              backgroundColor: transaction.isNew && !seenOrders[transaction.id] 
+                                ? ['rgba(254, 240, 138, 0.5)', 'rgba(254, 240, 138, 0.2)', 'rgba(254, 240, 138, 0)'] 
+                                : 'transparent'
+                            }}
+                            transition={{
+                              y: { type: 'spring', stiffness: 200, damping: 20 },
+                              opacity: { duration: 0.5 },
+                              backgroundColor: { duration: 1.2, times: [0, 0.7, 1] }
+                            }}>
+                            <td className="relative py-5 pr-6 pl-3">
                             <div className="flex gap-x-6">
                               {/* Icon based on transaction type */}
                               <div className="hidden h-6 w-5 flex-none text-gray-400 sm:block dark:text-gray-500">
@@ -89,7 +143,7 @@ export default function RecentOrders() {
                               Order <span className="text-gray-900 dark:text-white">#{transaction.orderNumber}</span>
                             </div>
                           </td>
-                        </tr>
+                        </motion.tr>
                       ))}
                     </tbody>
                   </table>

@@ -2,6 +2,26 @@
 
 import { faker } from '@faker-js/faker';
 
+// Product catalog for realistic sofa names
+const sofaProducts = [
+  'Jasper Modular Sofa with Wide Chaise',
+  '1977 Modular Sofa with Chaise and Armrests',
+  'Aura 3 Seater Modular Sofa with Aura Ottoman',
+  '1978 High Back Modular Curved Corner Sofa with Armrests and Ottoman',
+  'Zaza 2.5 Seater Sofa with Armchair',
+  'KING Sofa Bed',
+  'King Cinema Premiere 3 Seater TouchGlide® Recliner',
+  'King Cinema Premiere Recliner TouchGlide',
+  'Delta Coast Modular Sofa with Chaise',
+  'Delta Coast Ottoman',
+  'Reo 3 Seater Sofa with Smart Pockets®',
+  'Luna Armchair',
+  'Strata Ottoman',
+  'Plaza II 3 Seater Sofa',
+  'Felix Modular Sofa with Chaise',
+  'Neo Motion 3 Seater Recliner Sofa'
+];
+
 // Create consistent data for each region
 export const generateMockOrders = (count = 50) => {
   const regions = ['Australia', 'United Kingdom', 'United States'];
@@ -23,6 +43,53 @@ export const generateMockOrders = (count = 50) => {
   }
 
   return orders;
+};
+
+// Generate a simulated order for real-time updates
+export const generateSimulatedOrder = () => {
+  // Get a random location
+  const locations = ['Australia', 'United Kingdom', 'United States'];
+  const location = faker.helpers.arrayElement(locations);
+
+  // Get a random product
+  const description = faker.helpers.arrayElement(sofaProducts);
+
+  // Generate a random order number (5 digits)
+  const orderNumber = faker.string.numeric(5);
+
+  // Generate a random amount between $800 and $5000
+  const rawAmount = faker.number.int({ min: 800, max: 5000 });
+  const amount = `$${rawAmount.toLocaleString()}`;
+
+  // Generate a tax amount (roughly 10% of price)
+  const taxAmount = Math.round(rawAmount * 0.1);
+  const tax = `$${taxAmount.toLocaleString()}`;
+
+  // Random status (only Processing or Processed - no refunds)
+  const statuses = ['Processing', 'Processed'];
+  const status = faker.helpers.arrayElement(statuses);
+
+  // Icon based on status
+  let icon;
+  if (status === 'Processing') {
+    icon = 'ArrowDownCircle';
+  } else {
+    // For Processed status
+    icon = 'ArrowUpCircle';
+  }
+
+  // Return an order object that matches our Redux store format
+  return {
+    id: faker.string.uuid(),
+    orderNumber,
+    amount,
+    tax,
+    status,
+    location,
+    description,
+    icon,
+    isNew: true // Flag to indicate this is a new order for animations
+  };
 };
 
 // Generate stats data based on region
@@ -74,7 +141,7 @@ export const generateStatsByRegion = (region) => {
     },
     { 
       name: 'New Orders',
-      value: `${randomize(base.processedOrders).toFixed(0)}`,
+      value: `${randomize(base.newOrders).toFixed(0)}`,
       change: `+${faker.number.float({ min: 20, max: 60 }).toFixed(0)}%`,
       changeType: 'positive'
     },
