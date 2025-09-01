@@ -17,17 +17,9 @@ This file tracks the current tasks, backlog, and discoveries made during develop
 ---
 
 ## 📥 Backlog (Future Enhancements)
-- [ ] Add filtering by region (APAC, UK, US)  
 - [ ] Add sorting by date or amount  
 - [ ] Create summary statistics (e.g., total revenue by region)  
 - [ ] Add chart visualisation (bar/pie chart) 
-
----
-
-## 🔎 Discovered During Work
-*(Use this section to log new tasks that come up while coding.)*  
-- [ ] Improve table readability with Tailwind styling (striped rows, hover states)  
-- [ ] Consider dark mode support if needed for office display  
 
 ---
 
