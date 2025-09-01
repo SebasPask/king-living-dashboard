@@ -8,9 +8,9 @@ import {
 
 // Transaction statuses
 const statuses = {
-  Paid: 'bg-green-500/10 text-green-500 ring-green-500/10',
+  Processing: 'bg-green-500/10 text-green-500 ring-green-500/10',
   Withdraw: 'bg-white/5 text-gray-400 ring-white/10',
-  Overdue: 'bg-red-500/10 text-red-400 ring-red-500/10',
+  Refunded: 'bg-red-500/10 text-red-400 ring-red-500/10',
 }
 
 // Recent activity data
@@ -25,20 +25,20 @@ const days = [
         href: '#',
         amount: '$7,600.00',
         tax: '$500.00',
-        status: 'Paid',
+        status: 'Processing',
         client: 'Reform',
         description: 'Website redesign',
-        icon: ArrowUpCircleIcon,
+        icon: ArrowDownCircleIcon,
       },
       {
         id: 2,
         orderNumber: '00011',
         href: '#',
         amount: '$10,000.00',
-        status: 'Withdraw',
+        status: 'Processed',
         client: 'Tom Cook',
         description: 'Salary',
-        icon: ArrowDownCircleIcon,
+        icon:ArrowUpCircleIcon,
       },
       {
         id: 3,
@@ -46,7 +46,7 @@ const days = [
         href: '#',
         amount: '$2,000.00',
         tax: '$130.00',
-        status: 'Overdue',
+        status: 'Refunded',
         client: 'Tuple',
         description: 'Logo design',
         icon: ArrowPathIcon,
@@ -63,7 +63,7 @@ const days = [
         href: '#',
         amount: '$14,000.00',
         tax: '$900.00',
-        status: 'Paid',
+        status: 'Processing',
         client: 'SavvyCal',
         description: 'Website redesign',
         icon: ArrowUpCircleIcon,
@@ -77,14 +77,14 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function RecentActivity() {
+export default function RecentOrders() {
   return (
     <>
       <div className="space-y-16 py-10 xl:space-y-20">
         {/* <!-- Recent activity table --> */}
         <div>
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <h2 className="mx-auto max-w-2xl text-base font-semibold text-gray-900 lg:mx-0 lg:max-w-none dark:text-white">Recent activity</h2>
+            <h2 className="mx-auto max-w-2xl text-base font-semibold text-gray-900 lg:mx-0 lg:max-w-none dark:text-white">Recent Orders</h2>
           </div>
           <div className="mt-6 overflow-hidden border-t border-gray-100 dark:border-white/5">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -113,8 +113,8 @@ export default function RecentActivity() {
                           </svg>
                           <div className="flex-auto">
                             <div className="flex items-start gap-x-3">
-                              <div className="text-sm/6 font-medium text-gray-900 dark:text-white">$7,600.00 USD</div>
-                              <div className="rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset dark:bg-green-500/10 dark:text-green-500 dark:ring-green-500/10">Paid</div>
+                              <div className="text-sm/6 font-medium text-gray-900 dark:text-white">$7,600.00</div>
+                              <div className="rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset dark:bg-green-500/10 dark:text-green-500 dark:ring-green-500/10">Processing</div>
                             </div>
                             <div className="mt-1 text-xs/5 text-gray-500 dark:text-gray-400">$500.00 tax</div>
                           </div>
@@ -128,9 +128,9 @@ export default function RecentActivity() {
                       </td>
                       <td className="py-5 text-right">
                         <div className="flex justify-end">
-                          <a href="#" className="text-sm/6 font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">View<span className="hidden sm:inline"> transaction</span><span className="sr-only">, invoice #00012, Reform</span></a>
+                          <a href="#" className="text-sm/6 font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">View<span className="hidden sm:inline"> transaction</span><span className="sr-only">, order #00012, Reform</span></a>
                         </div>
-                        <div className="mt-1 text-xs/5 text-gray-500 dark:text-gray-400">Invoice <span className="text-gray-900 dark:text-white">#00012</span></div>
+                        <div className="mt-1 text-xs/5 text-gray-500 dark:text-gray-400">Order <span className="text-gray-900 dark:text-white">#00012</span></div>
                       </td>
                     </tr>
                     <tr>
@@ -141,7 +141,7 @@ export default function RecentActivity() {
                           </svg>
                           <div className="flex-auto">
                             <div className="flex items-start gap-x-3">
-                              <div className="text-sm/6 font-medium text-gray-900 dark:text-white">$10,000.00 USD</div>
+                              <div className="text-sm/6 font-medium text-gray-900 dark:text-white">$10,000.00</div>
                               <div className="rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-gray-500/10 ring-inset dark:bg-white/5 dark:text-gray-400 dark:ring-white/10">Withdraw</div>
                             </div>
                           </div>
@@ -155,9 +155,9 @@ export default function RecentActivity() {
                       </td>
                       <td className="py-5 text-right">
                         <div className="flex justify-end">
-                          <a href="#" className="text-sm/6 font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">View<span className="hidden sm:inline"> transaction</span><span className="sr-only">, invoice #00011, Tom Cook</span></a>
+                          <a href="#" className="text-sm/6 font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">View<span className="hidden sm:inline"> transaction</span><span className="sr-only">, order #00011, Tom Cook</span></a>
                         </div>
-                        <div className="mt-1 text-xs/5 text-gray-500 dark:text-gray-400">Invoice <span className="text-gray-900 dark:text-white">#00011</span></div>
+                        <div className="mt-1 text-xs/5 text-gray-500 dark:text-gray-400">Order <span className="text-gray-900 dark:text-white">#00011</span></div>
                       </td>
                     </tr>
                     <tr>
@@ -168,8 +168,8 @@ export default function RecentActivity() {
                           </svg>
                           <div className="flex-auto">
                             <div className="flex items-start gap-x-3">
-                              <div className="text-sm/6 font-medium text-gray-900 dark:text-white">$2,000.00 USD</div>
-                              <div className="rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-red-600/10 ring-inset dark:bg-red-500/10 dark:text-red-400 dark:ring-red-500/10">Overdue</div>
+                              <div className="text-sm/6 font-medium text-gray-900 dark:text-white">$2,000.00</div>
+                              <div className="rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-red-600/10 ring-inset dark:bg-red-500/10 dark:text-red-400 dark:ring-red-500/10">Refunded</div>
                             </div>
                             <div className="mt-1 text-xs/5 text-gray-500 dark:text-gray-400">$130.00 tax</div>
                           </div>
@@ -183,9 +183,9 @@ export default function RecentActivity() {
                       </td>
                       <td className="py-5 text-right">
                         <div className="flex justify-end">
-                          <a href="#" className="text-sm/6 font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">View<span className="hidden sm:inline"> transaction</span><span className="sr-only">, invoice #00009, Tuple</span></a>
+                          <a href="#" className="text-sm/6 font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">View<span className="hidden sm:inline"> transaction</span><span className="sr-only">, order #00009, Tuple</span></a>
                         </div>
-                        <div className="mt-1 text-xs/5 text-gray-500 dark:text-gray-400">Invoice <span className="text-gray-900 dark:text-white">#00009</span></div>
+                        <div className="mt-1 text-xs/5 text-gray-500 dark:text-gray-400">Order <span className="text-gray-900 dark:text-white">#00009</span></div>
                       </td>
                     </tr>
 
@@ -205,7 +205,7 @@ export default function RecentActivity() {
                           <div className="flex-auto">
                             <div className="flex items-start gap-x-3">
                               <div className="text-sm/6 font-medium text-gray-900 dark:text-white">$14,000.00</div>
-                              <div className="rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset dark:bg-green-500/10 dark:text-green-500 dark:ring-green-500/10">Paid</div>
+                              <div className="rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset dark:bg-green-500/10 dark:text-green-500 dark:ring-green-500/10">Processing</div>
                             </div>
                             <div className="mt-1 text-xs/5 text-gray-500 dark:text-gray-400">$900.00 tax</div>
                           </div>
@@ -219,9 +219,9 @@ export default function RecentActivity() {
                       </td>
                       <td className="py-5 text-right">
                         <div className="flex justify-end">
-                          <a href="#" className="text-sm/6 font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">View<span className="hidden sm:inline"> transaction</span><span className="sr-only">, invoice #00010, SavvyCal</span></a>
+                          <a href="#" className="text-sm/6 font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">View<span className="hidden sm:inline"> transaction</span><span className="sr-only">, order #00010, SavvyCal</span></a>
                         </div>
-                        <div className="mt-1 text-xs/5 text-gray-500 dark:text-gray-400">Invoice <span className="text-gray-900 dark:text-white">#00010</span></div>
+                        <div className="mt-1 text-xs/5 text-gray-500 dark:text-gray-400">Order <span className="text-gray-900 dark:text-white">#00010</span></div>
                       </td>
                     </tr>
                   </tbody>

@@ -75,7 +75,7 @@ export const generateStatsByRegion = (region) => {
     { 
       name: 'New Orders',
       value: `${randomize(base.processedOrders).toFixed(0)}`,
-      change: `-${faker.number.float({ min: 20, max: 60 }).toFixed(0)}%`,
+      change: `+${faker.number.float({ min: 20, max: 60 }).toFixed(0)}%`,
       changeType: 'positive'
     },
     { 
@@ -87,7 +87,7 @@ export const generateStatsByRegion = (region) => {
     { 
       name: 'Expenses', 
       value: `$${randomize(base.expenses).toFixed(0)}`,
-      change: `-${faker.number.float({ min: 5, max: 15 }).toFixed(0)}%`,
+      change: `+${faker.number.float({ min: 5, max: 15 }).toFixed(0)}%`,
       changeType: 'positive'
     }
   ];

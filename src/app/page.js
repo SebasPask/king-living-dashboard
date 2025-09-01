@@ -1,7 +1,7 @@
 'use client'
 
 import StatsSection from '@/components/StatsSection'
-import RecentActivity from '@/components/RecentActivity'
+import RecentOrders from '@/components/RecentOrders'
 import MapComponent from '@/components/MapComponent'
 
 export default function Home() {
@@ -12,7 +12,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8 mt-8">
           <MapComponent />
         </div>
-        <RecentActivity />
+        <RecentOrders />
       </div>
     </>
   );

@@ -62,12 +62,20 @@ export default function StatsSection() {
         <dl className="mx-auto grid max-w-7xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 lg:px-2 xl:px-0">
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 border-t border-gray-900/5 px-4 py-10 sm:px-6 lg:border-t-0 xl:px-8 dark:border-white/5">
             <dt className="text-sm/6 font-medium text-gray-500 dark:text-white">Revenue</dt>
-            <dd className={`text-xs font-medium ${stats[0]?.changeType === 'positive' ? 'text-green-500' : 'text-rose-600 dark:text-rose-400'}`}>{stats[0]?.change || '+0.00%'}</dd>
+            <dd className={`text-xs font-medium ${stats[0]?.changeType === 'positive' ? 'text-green-500' : 'text-rose-600 dark:text-rose-400'}`}>
+              <NumberFlow
+                value={stats[0]?.change.toString().replace(/[^0-9.-]+/g, '')}
+                duration={2300}
+                delay={200}
+                ease="easeInOut"
+                suffix="%"
+              />
+            </dd>
             <dd className="w-full flex-none text-3xl/10 font-medium tracking-tight text-gray-900 dark:text-white">
               <NumberFlow
                 value={stats[0]?.value.toString().replace(/[^0-9.-]+/g, '')}
-                duration={1000}
-                delay={900}
+                duration={2300}
+                delay={200}
                 ease="easeInOut"
                 format="currency"
                 currency="USD"
@@ -77,12 +85,20 @@ export default function StatsSection() {
           </div>
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 border-t border-gray-900/5 px-4 py-10 sm:border-l sm:px-6 lg:border-t-0 xl:px-8 dark:border-white/5">
             <dt className="text-sm/6 font-medium text-gray-500 dark:text-white">Expenses</dt>
-            <dd className={`text-xs font-medium ${stats[3]?.changeType === 'positive' ? 'text-green-500' : 'text-rose-600 dark:text-rose-400'}`}>{stats[3]?.change || '+0.00%'}</dd>
+            <dd className={`text-xs font-medium ${stats[3]?.changeType === 'positive' ? 'text-green-500' : 'text-rose-600 dark:text-rose-400'}`}>
+              <NumberFlow
+                value={stats[3]?.change.toString().replace(/[^0-9.-]+/g, '')}
+                duration={2300}
+                delay={200}
+                ease="easeInOut"
+                suffix="%"
+              />
+            </dd>
             <dd className="w-full flex-none text-3xl/10 font-medium tracking-tight text-gray-900 dark:text-white">
               <NumberFlow
                 value={stats[3]?.value.toString().replace(/[^0-9.-]+/g, '')}
-                duration={1000}
-                delay={900}
+                duration={2300}
+                delay={200}
                 ease="easeInOut"
                 format="currency"
                 currency="USD"
@@ -92,24 +108,40 @@ export default function StatsSection() {
           </div>
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 border-t border-gray-900/5 px-4 py-10 sm:px-6 lg:border-t-0 lg:border-l xl:px-8 dark:border-white/5">
             <dt className="text-sm/6 font-medium text-gray-500 dark:text-white">New Orders</dt>
-            <dd className={`text-xs font-medium ${stats[1]?.changeType === 'positive' ? 'text-green-500' : 'text-rose-600 dark:text-rose-400'}`}>{stats[1]?.change || '+0.00%'}</dd>
+            <dd className={`text-xs font-medium ${stats[1]?.changeType === 'positive' ? 'text-green-500' : 'text-rose-600 dark:text-rose-400'}`}>
+              <NumberFlow
+                value={stats[1]?.change.toString().replace(/[^0-9.-]+/g, '')}
+                duration={2300}
+                delay={200}
+                ease="easeInOut"
+                suffix="%"
+              />
+            </dd>
             <dd className="w-full flex-none text-3xl/10 font-medium tracking-tight text-gray-900 dark:text-white">
               <NumberFlow
                 value={stats[1]?.value.toString().replace(/[^0-9.-]+/g, '')}
-                duration={1000}
-                delay={500}
+                duration={2300}
+                delay={200}
                 ease="easeInOut"
               />
             </dd>
           </div>
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 border-t border-gray-900/5 px-4 py-10 sm:border-l sm:px-6 lg:border-t-0 xl:px-8 dark:border-white/5">
             <dt className="text-sm/6 font-medium text-gray-500 dark:text-white">Processed Orders</dt>
-            <dd className={`text-xs font-medium ${stats[2]?.changeType === 'positive' ? 'text-green-500' : 'text-rose-600 dark:text-rose-400'}`}>{stats[2]?.change || '+0.00%'}</dd>
+            <dd className={`text-xs font-medium ${stats[2]?.changeType === 'positive' ? 'text-green-500' : 'text-rose-600 dark:text-rose-400'}`}>
+              <NumberFlow
+                value={stats[2]?.change.toString().replace(/[^0-9.-]+/g, '')}
+                duration={2300}
+                delay={200}
+                ease="easeInOut"
+                suffix="%"
+              />
+            </dd>
             <dd className="w-full flex-none text-3xl/10 font-medium tracking-tight text-gray-900 dark:text-white">
               <NumberFlow
                 value={stats[2]?.value.toString().replace(/[^0-9.-]+/g, '')}
-                duration={1000}
-                delay={500}
+                duration={2300}
+                delay={200}
                 ease="easeInOut"
               />
             </dd>
