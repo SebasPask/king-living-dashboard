@@ -37,7 +37,6 @@ const MapComponent = () => {
 
   return (
     <div className="bg-black/40 border border-gray-800 p-6 rounded-lg shadow-lg">
-      <h2 className="text-xl font-semibold mb-4 text-white">Global Distribution Network</h2>
       <div className="relative w-full h-[400px] bg-gray-900/50 rounded overflow-hidden">
         {mapError ? (
           <div className="flex items-center justify-center h-full w-full">

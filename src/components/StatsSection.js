@@ -1,9 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { setLocation, selectLocations, selectCurrentLocation } from '../redux/locationSlice';
-import { generateStatsByRegion } from '../utils/mockDataGenerator';
+import { updateStats, selectStats } from '../redux/statsSlice';
+import NumberFlow from '@number-flow/react';
 
 // Utility function for conditional class names
 function classNames(...classes) {
@@ -14,13 +15,12 @@ export default function StatsSection() {
   const dispatch = useDispatch();
   const locations = useSelector(selectLocations);
   const currentLocation = useSelector(selectCurrentLocation);
-  const [stats, setStats] = useState([]);
+  const stats = useSelector(selectStats);
 
   // Update stats when location changes
   useEffect(() => {
-    const newStats = generateStatsByRegion(currentLocation);
-    setStats(newStats);
-  }, [currentLocation]);
+    dispatch(updateStats(currentLocation));
+  }, [currentLocation, dispatch]);
 
   return (
     <>
@@ -48,7 +48,7 @@ export default function StatsSection() {
                   e.preventDefault();
                   dispatch(setLocation(item.name));
                 }}
-                className={classNames(item.current ? 'text-indigo-400' : 'text-gray-400', 'hover:text-white')}
+                className={classNames(item.current ? 'text-indigo-400' : 'text-white', 'hover:text-white')}
               >
                 {item.name}
               </a>
@@ -61,24 +61,58 @@ export default function StatsSection() {
       <div className="border-b border-b-gray-900/10 lg:border-t lg:border-t-gray-900/5 dark:border-b-white/10 dark:lg:border-t-white/5">
         <dl className="mx-auto grid max-w-7xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 lg:px-2 xl:px-0">
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 border-t border-gray-900/5 px-4 py-10 sm:px-6 lg:border-t-0 xl:px-8 dark:border-white/5">
-            <dt className="text-sm/6 font-medium text-gray-500 dark:text-gray-400">Revenue</dt>
-            <dd className="text-xs font-medium text-gray-700 dark:text-gray-300">+4.75%</dd>
-            <dd className="w-full flex-none text-3xl/10 font-medium tracking-tight text-gray-900 dark:text-white">$405,091.00</dd>
+            <dt className="text-sm/6 font-medium text-gray-500 dark:text-white">Revenue</dt>
+            <dd className={`text-xs font-medium ${stats[0]?.changeType === 'positive' ? 'text-green-500' : 'text-rose-600 dark:text-rose-400'}`}>{stats[0]?.change || '+0.00%'}</dd>
+            <dd className="w-full flex-none text-3xl/10 font-medium tracking-tight text-gray-900 dark:text-white">
+              <NumberFlow
+                value={stats[0]?.value.toString().replace(/[^0-9.-]+/g, '')}
+                duration={1000}
+                delay={900}
+                ease="easeInOut"
+                format="currency"
+                currency="USD"
+                prefix="$"
+              />
+            </dd>
           </div>
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 border-t border-gray-900/5 px-4 py-10 sm:border-l sm:px-6 lg:border-t-0 xl:px-8 dark:border-white/5">
-            <dt className="text-sm/6 font-medium text-gray-500 dark:text-gray-400">Overdue invoices</dt>
-            <dd className="text-xs font-medium text-rose-600 dark:text-rose-400">+54.02%</dd>
-            <dd className="w-full flex-none text-3xl/10 font-medium tracking-tight text-gray-900 dark:text-white">$12,787.00</dd>
+            <dt className="text-sm/6 font-medium text-gray-500 dark:text-white">Expenses</dt>
+            <dd className={`text-xs font-medium ${stats[3]?.changeType === 'positive' ? 'text-green-500' : 'text-rose-600 dark:text-rose-400'}`}>{stats[3]?.change || '+0.00%'}</dd>
+            <dd className="w-full flex-none text-3xl/10 font-medium tracking-tight text-gray-900 dark:text-white">
+              <NumberFlow
+                value={stats[3]?.value.toString().replace(/[^0-9.-]+/g, '')}
+                duration={1000}
+                delay={900}
+                ease="easeInOut"
+                format="currency"
+                currency="USD"
+                prefix="$"
+              />
+            </dd>
           </div>
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 border-t border-gray-900/5 px-4 py-10 sm:px-6 lg:border-t-0 lg:border-l xl:px-8 dark:border-white/5">
-            <dt className="text-sm/6 font-medium text-gray-500 dark:text-gray-400">Outstanding invoices</dt>
-            <dd className="text-xs font-medium text-gray-700 dark:text-gray-300">-1.39%</dd>
-            <dd className="w-full flex-none text-3xl/10 font-medium tracking-tight text-gray-900 dark:text-white">$245,988.00</dd>
+            <dt className="text-sm/6 font-medium text-gray-500 dark:text-white">New Orders</dt>
+            <dd className={`text-xs font-medium ${stats[1]?.changeType === 'positive' ? 'text-green-500' : 'text-rose-600 dark:text-rose-400'}`}>{stats[1]?.change || '+0.00%'}</dd>
+            <dd className="w-full flex-none text-3xl/10 font-medium tracking-tight text-gray-900 dark:text-white">
+              <NumberFlow
+                value={stats[1]?.value.toString().replace(/[^0-9.-]+/g, '')}
+                duration={1000}
+                delay={500}
+                ease="easeInOut"
+              />
+            </dd>
           </div>
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 border-t border-gray-900/5 px-4 py-10 sm:border-l sm:px-6 lg:border-t-0 xl:px-8 dark:border-white/5">
-            <dt className="text-sm/6 font-medium text-gray-500 dark:text-gray-400">Expenses</dt>
-            <dd className="text-xs font-medium text-rose-600 dark:text-rose-400">+10.18%</dd>
-            <dd className="w-full flex-none text-3xl/10 font-medium tracking-tight text-gray-900 dark:text-white">$30,156.00</dd>
+            <dt className="text-sm/6 font-medium text-gray-500 dark:text-white">Processed Orders</dt>
+            <dd className={`text-xs font-medium ${stats[2]?.changeType === 'positive' ? 'text-green-500' : 'text-rose-600 dark:text-rose-400'}`}>{stats[2]?.change || '+0.00%'}</dd>
+            <dd className="w-full flex-none text-3xl/10 font-medium tracking-tight text-gray-900 dark:text-white">
+              <NumberFlow
+                value={stats[2]?.value.toString().replace(/[^0-9.-]+/g, '')}
+                duration={1000}
+                delay={500}
+                ease="easeInOut"
+              />
+            </dd>
           </div>
         </dl>
       </div>

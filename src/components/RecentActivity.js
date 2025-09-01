@@ -1,6 +1,5 @@
 'use client'
 
-import { Fragment } from 'react'
 import {
   ArrowDownCircleIcon,
   ArrowPathIcon,
@@ -22,9 +21,9 @@ const days = [
     transactions: [
       {
         id: 1,
-        invoiceNumber: '00012',
+        orderNumber: '00012',
         href: '#',
-        amount: '$7,600.00 USD',
+        amount: '$7,600.00',
         tax: '$500.00',
         status: 'Paid',
         client: 'Reform',
@@ -33,9 +32,9 @@ const days = [
       },
       {
         id: 2,
-        invoiceNumber: '00011',
+        orderNumber: '00011',
         href: '#',
-        amount: '$10,000.00 USD',
+        amount: '$10,000.00',
         status: 'Withdraw',
         client: 'Tom Cook',
         description: 'Salary',
@@ -43,9 +42,9 @@ const days = [
       },
       {
         id: 3,
-        invoiceNumber: '00009',
+        orderNumber: '00009',
         href: '#',
-        amount: '$2,000.00 USD',
+        amount: '$2,000.00',
         tax: '$130.00',
         status: 'Overdue',
         client: 'Tuple',
@@ -60,9 +59,9 @@ const days = [
     transactions: [
       {
         id: 4,
-        invoiceNumber: '00010',
+        orderNumber: '00010',
         href: '#',
-        amount: '$14,000.00 USD',
+        amount: '$14,000.00',
         tax: '$900.00',
         status: 'Paid',
         client: 'SavvyCal',
@@ -205,7 +204,7 @@ export default function RecentActivity() {
                           </svg>
                           <div className="flex-auto">
                             <div className="flex items-start gap-x-3">
-                              <div className="text-sm/6 font-medium text-gray-900 dark:text-white">$14,000.00 USD</div>
+                              <div className="text-sm/6 font-medium text-gray-900 dark:text-white">$14,000.00</div>
                               <div className="rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset dark:bg-green-500/10 dark:text-green-500 dark:ring-green-500/10">Paid</div>
                             </div>
                             <div className="mt-1 text-xs/5 text-gray-500 dark:text-gray-400">$900.00 tax</div>

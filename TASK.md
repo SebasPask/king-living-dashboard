@@ -10,6 +10,7 @@ This file tracks the current tasks, backlog, and discoveries made during develop
 - [x] Build unified dashboard page (`/pages/index.js`)  
 - [x] Ensure UI is responsive and display-friendly  
 - [x] Add state management with redux
+- [ ] Add a stats section featuring revenue, expenses, new orders, and processed orders to Redux. Update this section to display different data depending on the selected region. 
 - [ ] Implement mock data generator using `@faker-js/faker`  
 - [ ] Display orders table with columns: ID, Customer, Product, Amount, Date, Region  
 - [ ] Add at least one unit test for mock data generator  
